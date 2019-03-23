@@ -7,7 +7,6 @@ import { IonicPage, NavController, NavParams, ModalController, LoadingController
 import { NgForm } from '@angular/forms';
 import { SetLocationPage } from '../set-location/set-location';
 import { Geolocation } from '@ionic-native/geolocation';
-import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 declare var cordova: any;
 
@@ -35,8 +34,7 @@ export class AddPlacePage {
     private toastCtrl: ToastController,
     private camera: Camera,
     private placesProvider: PlacesProvider,
-    private file: File,
-    private webview: WebView) {
+    private file: File) {
   }
 
   onSubmit(form: NgForm){
@@ -102,15 +100,16 @@ export class AddPlacePage {
         // this.webview.convertFileSrc(imageData);
         const currentName = imageData.replace(/^.*[\\\/]/, '');
         const path = imageData.replace(/[^\/]*$/, '');
+        const newFileName = Date.now() + '.jpg';
         this.file.moveFile(path, currentName,
-          cordova.file.dataDirectory, currentName)
+          cordova.file.dataDirectory, newFileName)
         .then(
           (data: Entry) =>{
             const win: any = window;
             this.imageUrl = win.Ionic.WebView.convertFileSrc(data.nativeURL);
 
-            this.camera.cleanup();
-            // this.file.removeFile(path,currentName); do the same as up
+            // this.camera.cleanup();
+            this.file.removeFile(path,currentName);
           }
         )
         .catch(

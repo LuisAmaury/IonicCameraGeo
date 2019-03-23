@@ -1,3 +1,4 @@
+import { IonicStorageModule } from '@ionic/storage';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -26,7 +27,11 @@ import { WebView } from '@ionic-native/ionic-webview/ngx';
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAPAxj22Xp10mrVlaXO-RgxPGrQ1HhZeTQ'
+      apiKey: 'AIzaSyBXa1FAuTuv34ncO11AO2Q1OsAXK-XJZyo'
+    }),
+    IonicStorageModule.forRoot({
+      name: 'practica',
+      driverOrder: ['sqlite','indexeddb', 'websql']
     }),
     BrowserModule,
     IonicModule.forRoot(MyApp)
